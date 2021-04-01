@@ -501,11 +501,9 @@ var zoomPlugin = {
     var panOptions = chartInstance.$zoom._options.pan || {};
     var currentDeltaX = null;
     var currentDeltaY = null;
-    var panning = false;
     var panningScales = null;
     chartInstance.$zoom.panHandler = function(e) {
       if (currentDeltaX !== null && currentDeltaY !== null) {
-        panning = true;
         var deltaX = e.deltaX - currentDeltaX;
         var deltaY = e.deltaY - currentDeltaY;
         currentDeltaX = e.deltaX;
@@ -536,9 +534,6 @@ var zoomPlugin = {
       panningScales = null;
       currentDeltaX = null;
       currentDeltaY = null;
-      setTimeout(function() {
-        panning = false;
-      }, 500);
       if (typeof panOptions.onPanComplete === 'function') {
         panOptions.onPanComplete({chart: chartInstance});
       }
