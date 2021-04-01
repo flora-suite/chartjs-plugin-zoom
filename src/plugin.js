@@ -383,7 +383,6 @@ var zoomPlugin = {
     resolveOptions(chartInstance, pluginOptions);
 
     var options = chartInstance.$zoom._options;
-    var panThreshold = options.pan && options.pan.threshold;
 
     chartInstance.$zoom._mouseDownHandler = function(event) {
       node.addEventListener('mousemove', chartInstance.$zoom._mouseMoveHandler);
@@ -497,6 +496,52 @@ var zoomPlugin = {
           zoomOptions.onZoomComplete({chart: chartInstance});
         }
       }, 250);
+    };
+
+    var panOptions = chartInstance.$zoom._options.pan;
+    var currentDeltaX = null;
+    var currentDeltaY = null;
+    var panning = false;
+    var panningScales = null;
+    chartInstance.$zoom.panHandler = function(e) {
+      if (currentDeltaX !== null && currentDeltaY !== null) {
+        panning = true;
+        var deltaX = e.deltaX - currentDeltaX;
+        var deltaY = e.deltaY - currentDeltaY;
+        currentDeltaX = e.deltaX;
+        currentDeltaY = e.deltaY;
+        doPan(chartInstance, deltaX, deltaY, panningScales);
+      }
+    };
+
+    chartInstance.$zoom.panStartHandler = function(e) {
+      if (panOptions.enabled) {
+        var rect = e.target.getBoundingClientRect();
+        var x = e.center.x - rect.left;
+        var y = e.center.y - rect.top;
+        panningScales = getEnabledScalesByPoint(
+          panOptions,
+          x,
+          y,
+          chartInstance
+        );
+      }
+
+      currentDeltaX = 0;
+      currentDeltaY = 0;
+      chartInstance.$zoom.panHandler(e);
+    };
+
+    chartInstance.$zoom.panEndHandler = function() {
+      panningScales = null;
+      currentDeltaX = null;
+      currentDeltaY = null;
+      setTimeout(function() {
+        panning = false;
+      }, 500);
+      if (typeof panOptions.onPanComplete === 'function') {
+        panOptions.onPanComplete({chart: chartInstance});
+      }
     };
 
     chartInstance.resetZoom = function() {
