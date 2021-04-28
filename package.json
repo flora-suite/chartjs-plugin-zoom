@@ -13,6 +13,7 @@
     "url": "https://github.com/chartjs/chartjs-plugin-zoom.git"
   },
   "scripts": {
+    "prepack": "yarn build",
     "build": "rollup -c",
     "dev": "karma start --auto-watch --no-single-run --browsers chrome",
     "docs": "npm run build && vuepress build docs --no-cache",
