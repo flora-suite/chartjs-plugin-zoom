@@ -74,7 +74,5 @@
   "peerDependencies": {
     "chart.js": "^3.2.0"
   },
-  "dependencies": {
-    "hammerjs": "^2.0.8"
-  }
+  "dependencies": {}
 }
