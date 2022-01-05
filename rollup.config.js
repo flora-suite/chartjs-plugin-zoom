@@ -13,9 +13,9 @@ const banner = `/*!
  * http://chartjs.org/
  * Version: ${pkg.version}
  *
- * Copyright ${new Date().getFullYear()} Chart.js Contributors
+ * Copyright Foxglove Technologies Inc
  * Released under the MIT license
- * https://github.com/chartjs/${pkg.name}/blob/master/LICENSE.md
+ * https://github.com/foxglove/chartjs-plugin-zoom/blob/master/LICENSE.md
  */`;
 
 const name = 'ChartZoom';
@@ -31,7 +31,7 @@ module.exports = [
     input: 'src/index.js',
     output: {
       name,
-      file: `dist/${pkg.name}.js`,
+      file: 'dist/chartjs-plugin-zoom.js',
       banner,
       format: 'umd',
       indent: false,
@@ -49,7 +49,7 @@ module.exports = [
     input: 'src/index.js',
     output: {
       name,
-      file: `dist/${pkg.name}.min.js`,
+      file: 'dist/chartjs-plugin-zoom.min.js',
       banner,
       format: 'umd',
       indent: false,
@@ -71,7 +71,7 @@ module.exports = [
     ],
     output: {
       name,
-      file: `dist/${pkg.name}.esm.js`,
+      file: 'dist/chartjs-plugin-zoom.esm.js',
       banner,
       format: 'esm',
       indent: false
