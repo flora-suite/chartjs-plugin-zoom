@@ -561,7 +561,7 @@ var zoomPlugin = {
     resolveOptions(chart, options);
   },
 
-  beforeDatasetsDraw: function(chartInstance) {
+  afterDatasetsDraw: function(chartInstance) {
     var ctx = chartInstance.ctx;
 
     if (chartInstance.$zoom._dragZoomEnd) {
