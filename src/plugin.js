@@ -539,6 +539,20 @@ var zoomPlugin = {
       }
     };
 
+    /** Cancel drag zoom in progress. If there wasn't a drag zoom in progress, it does nothing. */
+    chartInstance.cancelDragZoom = function() {
+      if (!chartInstance.$zoom._dragZoomStart) {
+        return;
+      }
+
+      node.removeEventListener('mousemove', chartInstance.$zoom._mouseMoveHandler);
+
+      // Remove drag start and end before chart update to stop drawing selected area
+      chartInstance.$zoom._dragZoomStart = null;
+      chartInstance.$zoom._dragZoomEnd = null;
+      chartInstance.update();
+    };
+
     chartInstance.resetZoom = function() {
       storeOriginalOptions(chartInstance);
       var originalOptions = chartInstance.$zoom._originalOptions;
