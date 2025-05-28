@@ -22,6 +22,8 @@ jobs:
         with:
           node-version: latest
           registry-url: 'https://registry.npmjs.org'
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH_TOKEN }}
           
       - run: corepack enable
       - run: yarn install --frozen-lockfile
