@@ -20,7 +20,7 @@ jobs:
           node-version: latest
           
       - run: corepack enable
-      - run: yarn install
+      - run: yarn install --frozen-lockfile
       - run: yarn run build
       - run: yarn run lint
       # jhurliman: disable testing in CI for now, it needs special handling with xvfb
